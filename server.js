@@ -3,6 +3,7 @@ const path = require("path");
 const PORT = process.env.port || 3001;
 const notesData = require("./db/db.json");
 const fs = require("fs");
+const generateUniqueId = require("generate-unique-id");
 
 const app = express();
 
@@ -23,11 +24,16 @@ app.post("/api/notes", (req, res) => {
   console.info(`${req.method} request received to add a review`);
 
   const { title, text } = req.body;
+  const id = generateUniqueId({
+    length: 14,
+    useLetters: true,
+  });
 
   if (title && text) {
     const newNote = {
       title,
       text,
+      id,
     };
 
     // const response = {
