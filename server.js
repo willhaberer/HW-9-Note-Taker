@@ -18,6 +18,29 @@ app.get("/notes", (req, res) => {
 
 app.get("/api/notes", (req, res) => res.json(notesData));
 
+app.post("/api/notes", (req, res) => {
+  console.info(`${req.method} request received to add a review`);
+
+  const { title, text } = req.body;
+
+  if (title && text) {
+    const newNote = {
+      title,
+      text,
+    };
+
+    // const response = {
+    //   status: "success",
+    //   body: newReview,
+    // };
+
+    console.log(newNote);
+    res.status(201).json(newNote);
+  } else {
+    res.status(500).json("Error in adding");
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
 });

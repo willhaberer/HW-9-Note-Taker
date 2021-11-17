@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "watch": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,9 +14,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  },
-  "scripts": {
-    "start": "node server.js",
-    "watch": "nodemon server.js"
   }
 }
