@@ -36,11 +36,6 @@ app.post("/api/notes", (req, res) => {
       id,
     };
 
-    // const response = {
-    //   status: "success",
-    //   body: newReview,
-    // };
-
     fs.readFile("./db/db.json", "utf8", (err, data) => {
       if (err) {
         console.error(err);
