@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
-const notesData = require("./db/db.json");
+// const notesData = require("./db/db.json");
 const fs = require("fs");
 const generateUniqueId = require("generate-unique-id");
 
@@ -9,6 +9,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
@@ -18,7 +19,15 @@ app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
-app.get("/api/notes", (req, res) => res.json(notesData));
+app.get("/api/notes", function (req, res) {
+  fs.readFile(__dirname + "/db/db.json", "utf8", function (err, res) {
+    if (err) {
+      throw err;
+    } else {
+      res.json(JSON.parse(res));
+    }
+  });
+});
 
 app.post("/api/notes", (req, res) => {
   console.info(`${req.method} request received to add a review`);
