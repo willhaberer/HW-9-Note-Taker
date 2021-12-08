@@ -74,7 +74,23 @@ app.post("/api/notes", (req, res) => {
   }
 });
 
-app.delete("/api/notes/:id", (req, res) => {});
+app.delete("/api/notes/:id", (req, res) => {
+  var noteId = req.params.id;
+  console.log(noteId);
+  //id is correct
+  fs.readFile("./db/db.json", "utf8", function (err, data) {
+    var parsedNotes = JSON.parse(data);
+    parsedNotes = parsedNotes.filter((val) => val.id !== noteId);
+    fs.writeFile(
+      "./db/db.json",
+      JSON.stringify(parsedNotes, null, 4),
+      (writeErr) =>
+        writeErr
+          ? console.error(writeErr)
+          : console.info("Successfully updated Notes!")
+    );
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
