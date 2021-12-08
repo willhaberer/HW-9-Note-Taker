@@ -20,11 +20,11 @@ app.get("/notes", (req, res) => {
 });
 
 app.get("/api/notes", function (req, res) {
-  fs.readFile(__dirname + "/db/db.json", "utf8", function (err, res) {
+  fs.readFile(__dirname + "/db/db.json", "utf8", function (err, response) {
     if (err) {
       throw err;
     } else {
-      res.json(JSON.parse(res));
+      res.json(JSON.parse(response));
     }
   });
 });
